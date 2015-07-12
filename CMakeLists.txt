@@ -142,6 +142,17 @@ if(ALVAR_PACKAGE)
     find_package(CMU)
 
     # the PointGrey plugin is currently experimental and not included in the build by default
+    set(ALVAR_USE_BLACKMAGIC ${ALVAR_USE_BLACKMAGIC} CACHE BOOL "To enable BlackMagic DeckLink plugin")
+    if(ALVAR_USE_BLACKMAGIC)
+	
+      #find_package(BLACKMAGIC)
+      set(BLACKMAGIC_ROOT_PATH $ENV{BLACKMAGIC_ROOT_PATH} CACHE PATH "The BLACKMAGIC root directory")
+      set(BLACKMAGIC_INCLUDE_DIRS "${BLACKMAGIC_ROOT_PATH}/include")
+      set(BLACKMAGIC_LIBRARIES "${BLACKMAGIC_ROOT_PATH}/lib/BLACKMAGIC.lib")
+      set(BLACKMAGIC_LIBRARIES_DEBUG "${BLACKMAGIC_ROOT_PATH}/lib/BLACKMAGIC.lib")
+    endif(ALVAR_USE_BLACKMAGIC)
+	
+    # the PointGrey plugin is currently experimental and not included in the build by default
     set(ALVAR_USE_FLYCAPTURE2 ${ALVAR_USE_FLYCAPTURE2} CACHE BOOL "To enable PointGrey FlyCapture2 plugin")
     if(ALVAR_USE_FLYCAPTURE2)
       set(FLYCAPTURE2_ROOT_PATH $ENV{FLYCAPTURE2_ROOT_PATH} CACHE PATH "The FlyCapture2 root directory")

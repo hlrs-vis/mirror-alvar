@@ -91,7 +91,9 @@ void CameraDecklink::initializeCamera(IDeckLink *_deckLink){
 
 void CameraDecklink::StopCapture()
 {
+    fprintf(stderr, "Stopping Capture\n");
     result = deckLinkInput->StopStreams();
+    fprintf(stderr, "Stopped Capture\n");
     if(result != S_OK)
     {
         return;
@@ -203,13 +205,13 @@ HRESULT DeckLinkCaptureDelegate::VideoInputFrameArrived(IDeckLinkVideoInputFrame
                     timecode->GetString(&timecodeString);
                 }
             }
-
+/*
             fprintf(stderr, "Frame received (#%lu) [%s] - %s - Size: %li bytes\n",
                     frameCount,
                     timecodeString != NULL ? timecodeString : "No timecode",
                     rightEyeFrame != NULL ? "Valid Frame (3D left/right)" : "Valid Frame",
                     videoFrame->GetRowBytes() * videoFrame->GetHeight());
-
+*/
             if (timecodeString)
                 free((void*)timecodeString);
 

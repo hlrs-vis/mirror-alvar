@@ -47,7 +47,7 @@ public:
     void StopCapture();
 
     IplImage * captureLastFrame();
-    void CameraDecklink::readIplImage(IplImage* image);
+    void readIplImage(IplImage* image);
     cv::Mat captureLastCvMat();
 
 private:

@@ -17,6 +17,7 @@ set(ALVARCapturePluginBlackMagic_HEADERS
 )
 set(ALVARCapturePluginBlackMagic_SOURCES
     CapturePluginBlackMagic.cpp
+     ${BLACKMAGIC_INCLUDE_DIRS}/DeckLinkAPIDispatch.cpp
 	cameradecklink.cpp
 )
 
@@ -33,8 +34,8 @@ target_link_libraries(ALVARCapturePluginBlackMagic
     ALVAR
     ALVARPlatform
     ${OpenCV_LIBRARIES}
-    optimized ${BLACKMAGIC_LIBRARIES}
-    debug ${BLACKMAGIC_LIBRARIES_DEBUG}
+    #optimized ${BLACKMAGIC_LIBRARIES}
+    #debug ${BLACKMAGIC_LIBRARIES_DEBUG}
 )
 
 # install headers

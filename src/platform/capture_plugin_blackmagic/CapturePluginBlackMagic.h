@@ -93,6 +93,9 @@ private:
     CameraDecklink *camera;
     int mChannels;
     IplImage *mReturnFrame;
+    IDeckLink 						*deckLink;
+
+    IDeckLinkIterator *deckLinkIterator;
 };
 
 /**
@@ -119,9 +122,6 @@ public:
     Capture *createCapture(const CaptureDevice captureDevice);
 private:
     
-    IDeckLink 						*deckLink;
-
-    IDeckLinkIterator *deckLinkIterator;
 };
 
 extern "C" ALVAR_CAPTURE_PLUGIN_BlackMagic_EXPORT void registerPlugin(const std::string &captureType, alvar::CapturePlugin *&capturePlugin);

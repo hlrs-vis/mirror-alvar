@@ -51,7 +51,6 @@ CaptureBlackMagic::CaptureBlackMagic(const CaptureDevice captureDevice)
     HRESULT						result;
     
 
-    camera = new CameraDecklink();
     deckLinkIterator = CreateDeckLinkIteratorInstance();
 
 
@@ -59,7 +58,12 @@ CaptureBlackMagic::CaptureBlackMagic(const CaptureDevice captureDevice)
     {
         fprintf(stderr, "This application requires the DeckLink drivers installed.\n");
     }
+    else
+    {
+        fprintf(stderr, "found declink driver\n");
+    }
     
+    camera = new CameraDecklink();
 
 }
 
@@ -72,6 +76,7 @@ CaptureBlackMagic::~CaptureBlackMagic()
 
 bool CaptureBlackMagic::start()
 {
+    HRESULT						result;
     if (isCapturing()) {
         return isCapturing();
     }
@@ -156,11 +161,15 @@ bool CaptureBlackMagic::start()
     } else {
         return false;
     }
-    */
-    mReturnFrame = cvCreateImage(cvSize(mXResolution, mYResolution), IPL_DEPTH_8U, mChannels);
     if (mCamera->StartCapture() != FlyCapture2::PGRERROR_OK) {
         return false;
     }
+    */
+      mChannels = 3;
+      mXResolution = 1920;
+      mYResolution = 1080;
+    fprintf(stderr,"cvCreateImage(cvSize(mXResolution, mYResolution), IPL_DEPTH_8U, mChannels); %d %d \n",mXResolution, mYResolution);
+    mReturnFrame = cvCreateImage(cvSize(mXResolution, mYResolution), IPL_DEPTH_8U, mChannels);
     mIsCapturing = true;
     return isCapturing();
 }
@@ -168,6 +177,7 @@ bool CaptureBlackMagic::start()
 void CaptureBlackMagic::stop()
 {
     if (isCapturing()) {
+    fprintf(stderr,"stop capture\n");
         camera->StopCapture();
         cvReleaseImage(&mReturnFrame);
     }
@@ -216,11 +226,11 @@ CapturePlugin::CaptureDeviceVector CapturePluginBlackMagic::enumerateDevices()
     CaptureDeviceVector devices;
 
 
-    if(deckLinkIterator!=NULL)
-    {
+    //if(deckLinkIterator!=NULL)
+    //{
         CaptureDevice captureDevice(mCaptureType, "input0", "description_for_input0");
         devices.push_back(captureDevice);
-    }
+    //}
 
     return devices;
 }
